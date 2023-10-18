@@ -1,0 +1,10 @@
+{
+  "dataset-id": "International_Football_Results",
+  "dataset-version": 1,
+  "environment": null,
+  "client-id": null,
+  "client-secret": null,
+  "maven-repository": "https://4p-public-artifacts.s3.amazonaws.com/baikal/releases/,https://repo.osgeo.org/repository/release/",
+  "avro-version": "org.apache.spark:spark-avro_2.12:3.3.2",
+  "sdk-version": "com.telefonica.baikal:spark-sdk_2.12:2.2.0"
+}
