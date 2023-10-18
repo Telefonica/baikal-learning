@@ -1,0 +1,10 @@
+{
+  "dataset-id": "International_Football_Results",
+  "dataset-version": 1,
+  "environment": "global-int-current.baikalplatform.com",
+  "client-id": "testing-app-training",
+  "client-secret": "RKXAD9PXEpY6Brpe",
+  "maven-repository": "https://4p-public-artifacts.s3.amazonaws.com/baikal/releases/",
+  "avro-version": "org.apache.spark:spark-avro_2.12:3.3.2",
+  "sdk-version": "com.telefonica.baikal:spark-sdk_2.12:2.1.0"
+}
