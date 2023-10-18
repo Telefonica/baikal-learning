@@ -1,10 +1,8 @@
 #!/usr/bin/python3
 
 # Copyright 2023 Telefonica
-# See LICENSE for details.
-
-# License Apache2!!
-# https://github.com/Telefonica/baikal-sdk/tree/master/node
+# See LICENSE linked below for details.
+# https://github.com/Telefonica/baikal-learning/blob/main/LICENSE
 
 
 import json
