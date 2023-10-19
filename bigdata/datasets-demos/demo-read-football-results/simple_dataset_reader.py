@@ -13,10 +13,13 @@ from pyspark.sql import SparkSession, DataFrame
 def load_config(
     config_path: str = 'dataset-config.json'
 ) -> Dict[str, Any]:
-    """Loads the dataset configuration from a JSON file
+    """Loads the configuration for accessing the dataset from a JSON file
+
+    Args:
+        config_path: path to the configuration file for accessing the dataset
 
     Returns:
-        deserialized configuration
+        Deserialized configuration
     """
 
     print(f'\033[93m>>> [CONFIG] Loading dataset configuration from file \"{config_path}\"\033[0m')
@@ -34,6 +37,9 @@ def build_session(
     config: Dict[str, Any]
 ) -> SparkSession:
     """Builds a Spark session.
+
+    Args:
+        config: the configuration to access the dataset
 
     Returns:
         Spark session
@@ -59,12 +65,28 @@ def build_session(
 def format_entry(
     entry: Tuple[str, Any]
 ) -> str:
+    """Transform a given Tuple object into a formatted string
+
+    Args:
+        entry: the tuple to format
+
+    Returns:
+        A formatted string
+    """
     return f">>> - {entry[0]}: {entry[1]}"
 
 
 def format_record(
     record: Dict[str, Any]
 ) -> str:
+    """Turns into a formatted string a Dict object that contains a Tuple
+
+    Args:
+        entry: the Dict object to format
+
+    Returns:
+        A formatted string
+    """
     return "\n".join(format_entry((k, v)) for k, v in record.items())
 
 
@@ -75,11 +97,11 @@ def read_dataset(
     """Reads a dataset
 
     Args:
-        spark: pyspark session
+        spark_session: pyspark session
         config: the configuration to access the dataset
 
     Returns:
-        dataframe containing the data of the dataframe
+        DataFrame containing the records read from the dataset
     """
     print(f'\033[92m>>> [SPARK] Fetching data from dataset \"{config["dataset-id"]}\"\033[0m')
 
@@ -97,7 +119,15 @@ def showing_fetched_data(
     df: DataFrame,
     max_records_to_show: int = 20
 ) -> None:
-    """
+    """Fetches and shows only the first 'n' records of a dataset,
+       with the maximum limit imposed by the 'max_records_to_show' parameter.
+
+    Args:
+        df: the dataframe containing the entries read from the dataset
+        max_records_to_show: the maximum number of records to fetch and show
+
+    Returns:
+        Nothing
     """
 
     print('\033[94m>>> [DATA] Loading dataframe to show fetched records, please wait...\033[0m')
@@ -111,7 +141,7 @@ def showing_fetched_data(
 
 
 def main():
-    """This script only reads data from a dataset.
+    """Script that only reads data from one dataset.
     """
     print('\033[95m>>> [SCRIPT] Script execution starts now\033[0m')
 
