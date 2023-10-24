@@ -46,7 +46,7 @@ def build_session(
     """
     print('\033[92m>>> [SPARK] Building Spark session\033[0m')
 
-    spark_session = SparkSession.builder \
+    spark = SparkSession.builder \
         .master("local") \
         .config(
             key='spark.jars.repositories',
@@ -58,14 +58,14 @@ def build_session(
         ) \
         .getOrCreate()
 
-    spark_session.sparkContext.setLogLevel("WARN")
+    spark.sparkContext.setLogLevel("WARN")
 
-    return spark_session
+    return spark
 
 def format_entry(
     entry: Tuple[str, Any]
 ) -> str:
-    """Transform a given Tuple object into a formatted string
+    """Transforms a given Tuple object into a formatted string
 
     Args:
         entry: the tuple to format
@@ -91,21 +91,21 @@ def format_record(
 
 
 def read_dataset(
-    spark_session: SparkSession,
+    spark: SparkSession,
     config: Dict[str, Any]
 ) -> DataFrame:
     """Reads a dataset
 
     Args:
-        spark_session: pyspark session
+        spark: pyspark session
         config: the configuration to access the dataset
 
     Returns:
-        DataFrame containing the records read from the dataset
+        DataFrame containing a view of the records read from the dataset
     """
     print(f'\033[92m>>> [SPARK] Fetching data from dataset \"{config["dataset-id"]}\"\033[0m')
 
-    return spark_session.read \
+    return spark.read \
         .format('telefonica') \
         .option('dataset.id', config['dataset-id']) \
         .option('dataset.version', config['dataset-version']) \
@@ -123,7 +123,7 @@ def showing_fetched_data(
        with the maximum limit imposed by the 'max_records_to_show' parameter.
 
     Args:
-        df: the dataframe containing the entries read from the dataset
+        df: the dataframe containing a view of the entries read from the dataset
         max_records_to_show: the maximum number of records to fetch and show
 
     Returns:
@@ -137,8 +137,6 @@ def showing_fetched_data(
 
     print(f'\033[94m>>> [DATA] {max_records_to_show} records shown successfully\033[0m')
 
-    return
-
 
 def main():
     """Script that only reads data from one dataset.
@@ -146,15 +144,15 @@ def main():
     print('\033[95m>>> [SCRIPT] Script execution starts now\033[0m')
 
     config = load_config()
-    spark_session = build_session(config)
+    spark = build_session(config)
     max_records_to_show = 20
 
     showing_fetched_data(
-        read_dataset(spark_session,config),
+        read_dataset(spark,config),
         max_records_to_show
     )
 
-    spark_session.stop()
+    spark.stop()
     print('\033[92m>>> [SPARK] Session closed successfully\033[0m')
 
     print('\033[95m>>> [SCRIPT] Script execution finished\033[0m')
